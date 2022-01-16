@@ -4,30 +4,31 @@ class Category:
         self.name = name
         self.ledger = []
         self.value = 0
+        self.description = ''
 
     def deposit(self, value, description=''):
         self.value += value
         self.description = description
-        self.ledger.append({"amount": value,"description": description})
+        self.ledger.append({"amount": value, "description": description})
 
     def withdraw(self, value, description=''):
-        if self.check_funds(value) == False:
+        if not self.check_funds(value):
             return False
         else:
             self.value -= value
             self.description = description
-            self.ledger.append({"amount": -value,"description": description})
+            self.ledger.append({"amount": -value, "description": description})
             return True
 
     def get_balance(self):
         return self.value
 
-    def transfer(self, value, catagory):
-        if self.check_funds(value) == False:
+    def transfer(self, value, category):
+        if not self.check_funds(value):
             return False
         else:
-            self.withdraw(value, "Transfer to " + str(catagory.name))
-            catagory.deposit(value, "Transfer from " + str(self.name))
+            self.withdraw(value, "Transfer to " + str(category.name))
+            category.deposit(value, "Transfer from " + str(self.name))
             return True
 
     def check_funds(self, value):
@@ -38,7 +39,10 @@ class Category:
 
     def __str__(self):
         n = str(self.name)
-        return n
+        for i in self.ledger:
+            print(i)
+        total = ('Total: ' + str(self.get_balance()))
+        return total
 
 
 
