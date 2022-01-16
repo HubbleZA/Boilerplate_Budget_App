@@ -1,3 +1,5 @@
+import math
+
 class Category:
 
     def __init__(self, name):
@@ -38,11 +40,13 @@ class Category:
             return True
 
     def __str__(self):
-        n = str(self.name)
+        n = '*'*round((30/2) - (len(str(self.name))/2)) + str(self.name) + '*'*(math.floor((30/2) - (len(str(self.name))/2))) + '\n'
         for i in self.ledger:
-            print(i)
-        total = ('Total: ' + str(self.get_balance()))
-        return total
+            n = (n + str(i['description'])[:23])
+            deslen = len(str(i['description'])[:23])
+            n = n + str("{:.2f}".format((float)(i['amount']))).rjust(30-deslen) + '\n'
+        n = n + str('Total: ' + str(self.get_balance()))
+        return n
 
 
 
