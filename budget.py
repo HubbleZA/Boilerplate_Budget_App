@@ -52,4 +52,22 @@ class Category:
 
 
 def create_spend_chart(categories):
-    return print("")
+    print("Percentage spent by category")
+    spentlist = []
+    n = 0
+    totalspent = 0
+    for k in categories:
+        spent = 0
+        for i in k.ledger:
+            if i['amount'] < 0:
+                spent = spent + i['amount']
+            else:
+                pass
+        totalspent = totalspent + spent
+        spentlist.append({'Name': k.name, 'Amount': spent})
+        n += 1
+    for i in spentlist:
+        i['Percentage'] = math.floor(i['Amount'] / (totalspent) * 100)
+    print(spentlist)
+
+    return
