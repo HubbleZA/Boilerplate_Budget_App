@@ -20,7 +20,7 @@ class Category:
             return True
 
     def get_balance(self):
-        print(self.value)
+        return self.value
 
     def transfer(self, value, catagory):
         if self.check_funds(value) == False:
@@ -33,8 +33,14 @@ class Category:
     def check_funds(self, value):
         if self.value < value:
             return False
+        else:
+            return True
+
+    def __str__(self):
+        n = str(self.name)
+        return n
 
 
 
 def create_spend_chart(categories):
-    return
+    return print("")
