@@ -1,5 +1,6 @@
 import math
 
+
 class Category:
 
     def __init__(self, name):
@@ -40,14 +41,14 @@ class Category:
             return True
 
     def __str__(self):
-        n = '*'*round((30/2) - (len(str(self.name))/2)) + str(self.name) + '*'*(math.floor((30/2) - (len(str(self.name))/2))) + '\n'
+        n = '*' * round((30 / 2) - (len(str(self.name)) / 2)) + str(self.name) + '*' * (
+            math.floor((30 / 2) - (len(str(self.name)) / 2))) + '\n'
         for i in self.ledger:
             n = (n + str(i['description'])[:23])
-            deslen = len(str(i['description'])[:23])
-            n = n + str("{:.2f}".format((float)(i['amount']))).rjust(30-deslen) + '\n'
+            desclen = len(str(i['description'])[:23])
+            n = n + str("{:.2f}".format(float(i['amount']))).rjust(30 - desclen) + '\n'
         n = n + str('Total: ' + str(self.get_balance()))
         return n
-
 
 
 def create_spend_chart(categories):
