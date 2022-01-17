@@ -80,6 +80,8 @@ def create_spend_chart(categories):
             t = k.index('|')
             num = int(k[:t])
             percentage = int(i['Percentage'])
+            if percentage == 10:
+                percentage = percentage - 1
             if percentage >= num:
                 change = list(k)
                 change[place] = 'o'
@@ -94,5 +96,6 @@ def create_spend_chart(categories):
     for i in categories:
         wordlist = wordlist + i.name + " "
     for x in itertools.zip_longest(*wordlist.split(), fillvalue=' '):
-        prt = prt + ('  '.join(x)).rjust(12) + "  \n"
+        prt = prt + ('  '.join(x)).rjust(12) + "  " + "\n"
+    prt = prt[:-1]
     return prt
