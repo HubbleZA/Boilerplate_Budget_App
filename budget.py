@@ -1,4 +1,5 @@
 import math
+import itertools
 
 
 class Category:
@@ -52,7 +53,6 @@ class Category:
 
 
 def create_spend_chart(categories):
-    print("Percentage spent by category")
     spentlist = []
     n = 0
     totalspent = 0
@@ -67,7 +67,32 @@ def create_spend_chart(categories):
         spentlist.append({'Name': k.name, 'Amount': spent})
         n += 1
     for i in spentlist:
-        i['Percentage'] = math.floor(i['Amount'] / (totalspent) * 100)
-    print(spentlist)
-
-    return
+        i['Percentage'] = round((i['Amount'] / (totalspent) * 100),-1)
+    graphlist = []
+    prt = "Percentage spent by category\n"
+    for i in reversed(range(11)):
+        graphlist.append(f"{(str(10 * i) + '|').rjust(4) + ' ' * 10}\n")
+    place = 2
+    for i in spentlist:
+        place += 3
+        numlist = 0
+        for k in graphlist:
+            t = k.index('|')
+            num = int(k[:t])
+            percentage = int(i['Percentage'])
+            if percentage >= num:
+                change = list(k)
+                change[place] = 'o'
+                change = "".join(change)
+                graphlist[numlist] = change
+            numlist += 1
+    for i in graphlist:
+        prt = prt + i
+    prt = prt + "-".rjust(5)
+    prt = prt + "---"*len(categories) + "\n"
+    wordlist = ""
+    for i in categories:
+        wordlist = wordlist + i.name + " "
+    for x in itertools.zip_longest(*wordlist.split(), fillvalue=' '):
+        prt = prt + ('  '.join(x)).rjust(12) + "  \n"
+    return prt
