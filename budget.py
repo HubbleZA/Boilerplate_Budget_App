@@ -97,5 +97,6 @@ def create_spend_chart(categories):
         wordlist = wordlist + i.name + " "
     for x in itertools.zip_longest(*wordlist.split(), fillvalue=' '):
         prt = prt + ('  '.join(x)).rjust(12) + "  " + "\n"
+    #removing the last \n from the last line
     prt = prt[:-1]
     return prt
