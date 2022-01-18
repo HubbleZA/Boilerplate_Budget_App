@@ -80,6 +80,7 @@ def create_spend_chart(categories):
             t = k.index('|')
             num = int(k[:t])
             percentage = int(i['Percentage'])
+#This if statement is used because I found when it is 10% it only filled the 0| line which looks a bit weird to me
             if percentage == 10:
                 percentage = percentage - 1
             if percentage >= num:
@@ -91,12 +92,11 @@ def create_spend_chart(categories):
     for i in graphlist:
         prt = prt + i
     prt = prt + "-".rjust(5)
-    prt = prt + "---"*len(categories) + "\n"
+    prt = prt + "---"*len(categories)
     wordlist = ""
     for i in categories:
         wordlist = wordlist + i.name + " "
     for x in itertools.zip_longest(*wordlist.split(), fillvalue=' '):
-        prt = prt + ('  '.join(x)).rjust(12) + "  " + "\n"
-    #removing the last \n from the last line
-    prt = prt[:-1]
+        prt = prt + "\n"
+        prt = prt + ('  '.join(x)).rjust(12) + "  "
     return prt
